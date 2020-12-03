@@ -1,8 +1,7 @@
 FROM public.ecr.aws/bitnami/minideb:buster as build
-RUN install_packages "nasm"
+RUN install_packages nasm
 ADD . /
-RUN nasm -o /tiny /tiny.asm
-RUN chmod +x /tiny
+RUN nasm -o /tiny /tiny.asm && chmod +x /tiny
 
 FROM scratch
 COPY --from=build /tiny /tiny
